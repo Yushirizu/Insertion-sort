@@ -1,44 +1,46 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-int main()
-{
-    int tab[20] = {78,40,84,12,86,22,42,44,82,77,96,54,70,59,37,95,4,49,63,27};
-    int indRef, test, indc,index;
+// Function to sort an array using insertion sort
+void insertion_sort(int arr[], int n) {
+  int i, j, key;
+  for (i = 1; i < n; i++) {
+    key = arr[i];
+    j = i - 1;
 
-    printf("DISPLAY OF THE TABLE OF 20 UNSORTED NUMBERS\n");
-
-    for(index = 0; index<=19;index++){
-        printf("Value  [%d] : %d\n",index,tab[index]);
+    /* Move elements of arr[0..i-1], that are
+       greater than key, to one position ahead
+       of their current position */
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j = j - 1;
     }
+    arr[j + 1] = key;
+  }
+}
 
-    /* the indRef cursor starts at the second value and is compared to the previous element
-    indC is the position of the element that is compared with the test value*/
+// Function to print an array
+void print_array(int arr[], int n) {
+  int i;
+  for (i = 0; i < n; i++) {
+    printf("%d ", arr[i]);
+  }
+  printf("\n");
+}
 
-    /*As soon as the value is inserted in the array, we move to the next element.*/
+int main() {
+  int arr[] = {5, 2, 4, 6, 1, 3};
+  int n = sizeof(arr) / sizeof(arr[0]);
 
-    for(indRef=1;indRef<=19;indRef++){
-        test = tab[indRef];
-        indc = indRef;
+  // Print the array before sorting
+  printf("Original array: ");
+  print_array(arr, n);
 
-    /*if the previous value is greater than the test value, move forward one space */
-    /*And we finish when the indc reaches 0*/
+  // Sort the array
+  insertion_sort(arr, n);
 
-    while(tab [indc-1] > test && indc != 0){
-        tab [indc] = tab [indc-1];
+  // Print the array after sorting
+  printf("Sorted array: ");
+  print_array(arr, n);
 
-    /* we continue the comparison with the other previous values*/
-
-        indc --;
-    }
-
-    tab [indc] = test;
-
-    }
-
-    printf("DISPLAY OF THE SORTING TABLE\n");
-
-    for(index = 0; index<=19;index++){
-        printf("Value  [%d] : %d\n",index,tab[index]);
-    }
+  return 0;
 }
